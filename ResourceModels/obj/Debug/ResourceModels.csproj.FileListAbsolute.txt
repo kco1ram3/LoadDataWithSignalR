@@ -1,0 +1,6 @@
+D:\Project\LoadDataWithSignalR\ResourceModels\bin\Debug\ResourceModels.dll
+D:\Project\LoadDataWithSignalR\ResourceModels\bin\Debug\ResourceModels.pdb
+D:\Project\LoadDataWithSignalR\ResourceModels\obj\Debug\ResourceModels.dll
+D:\Project\LoadDataWithSignalR\ResourceModels\obj\Debug\ResourceModels.pdb
+D:\Project\LoadDataWithSignalR\ResourceModels\obj\Debug\ResourceModels.csprojAssemblyReference.cache
+D:\Project\LoadDataWithSignalR\ResourceModels\obj\Debug\ResourceModels.csproj.CoreCompileInputs.cache

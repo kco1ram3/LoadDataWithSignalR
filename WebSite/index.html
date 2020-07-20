@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <title>My Website</title>
+    <meta charset="utf-8" />
+    <link href="Content/Site.css" rel="stylesheet" />
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <link href="Content/font-awesome.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="row ng-cloak" ng-controller="indexController as index">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <form class="form-inline" name="formSearch" ng-submit="formSearch.$valid && index.search();" novalidate>
+                <p>
+                    <div class="form-group" ng-class="{'has-error has-feedback': formSearch.$submitted && formSearch.conditionInput.$error.required}">
+                        <label class="control-label" for="conditionInput">Search Criteria</label>
+                        <input type="text"
+                               class="form-control"
+                               name="conditionInput"
+                               id="conditionInput"
+                               placeholder="Condition"
+                               ng-model="index.condition"
+                               ng-disabled="index.searching"
+                               required />
+                        <span class="glyphicon glyphicon-remove form-control-feedback" 
+                              aria-hidden="true" 
+                              ng-show="formSearch.$submitted && formSearch.conditionInput.$error.required"></span>
+                    </div>
+                    <button type="submit" class="btn btn-primary" ng-disabled="index.searching">Search</button>
+                    <i class="fa fa-spinner fa-spin fa-1x fa-fw" ng-show="index.searching"></i>
+                </p>
+            </form>
+            <div class="row">
+                <div class="col-md-3">
+                    Size
+                    <div class="btn-group" uib-dropdown>
+                        <button id="single-button" type="button" class="btn btn-default" uib-dropdown-toggle ng-disabled="index.searching">
+                            {{index.currentSize}} <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                            <li role="menuitem" ng-repeat="size in index.pageSize"><a ng-click="index.changePageSize(size);">{{size}}</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        Showing {{(index.currentPage * index.currentSize) + (index.datas.length > 0 ? 1 : 0) - index.currentSize}} to {{index.currentPage * index.currentSize > index.totalItems ? index.totalItems : index.currentPage * index.currentSize}} of {{index.totalItems}} entries
+                    </div>
+                </div>
+                <div class="col-md-9 text-right">
+                    <ul uib-pagination 
+                        total-items="index.totalItems" 
+                        ng-model="index.currentPage" 
+                        max-size="index.maxSize" 
+                        class="pagination-sm" 
+                        boundary-links="true" 
+                        rotate="false" 
+                        ng-change="index.changeFilter();"
+                        items-per-page="index.currentSize"
+                        boundary-link-numbers="true" 
+                        ng-disabled="index.searching"></ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="text-center" width="10%">#</th>
+                                <th class="text-center">Key</th>
+                                <th class="text-center">Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="data in index.datas"> 
+                                <th class="text-center" scope="row">{{(index.currentPage * index.currentSize) + 1 - index.currentSize + $index}}</th> 
+                                <td>{{data.Key}}</td> 
+                                <td class="text-right">{{ data.Price | number : 2 }}</td> 
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    Showing {{(index.currentPage * index.currentSize) + (index.datas.length > 0 ? 1 : 0) - index.currentSize}} to {{index.currentPage * index.currentSize > index.totalItems ? index.totalItems : index.currentPage * index.currentSize}} of {{index.totalItems}} entries
+                </div>
+                <div class="col-md-9 text-right">
+                    <ul uib-pagination
+                        total-items="index.totalItems"
+                        ng-model="index.currentPage"
+                        max-size="index.maxSize"
+                        class="pagination-sm"
+                        boundary-links="true"
+                        rotate="false"
+                        ng-change="index.changeFilter();"
+                        items-per-page="index.currentSize"
+                        boundary-link-numbers="true"
+                        ng-disabled="index.searching"></ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+
+    <script src="Scripts/jquery-1.10.2.js"></script>
+    <script src="Scripts/jquery.signalR-2.2.1.js"></script>
+    <script src="Scripts/bootstrap.js"></script>
+    <script src="Scripts/angular.js"></script>
+    <script src="signalr/hubs"></script>
+    <script src="Scripts/angular-ui/ui-bootstrap-tpls.js"></script>
+    <script src="Scripts/angular-app/app.js"></script>
+    <script src="Scripts/angular-app/data.factory.js"></script>
+    <script src="Scripts/angular-app/index.controller.js"></script>
+</body>
+</html>
